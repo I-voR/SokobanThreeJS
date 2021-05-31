@@ -1,6 +1,8 @@
 import express from 'express'
 import { createServer } from "http";
 import { Server } from "socket.io";
+import connect from './socket/connect.js';
+
 
 export const main = {
     init: () => {
@@ -41,12 +43,10 @@ export const main = {
         })
 
 
-        io.on("connection", socket => { /* ... */ });
+        //io.on("connection", socket => { /* ... */ });
 
 
-        io.sockets.on('connection', function (socket) {
-            socket.emit('debugoutput', "test emitu")
-        });
+        connect.socketFunc(io)
 
 
     }

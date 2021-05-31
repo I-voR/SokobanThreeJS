@@ -14,6 +14,12 @@ const socket = io(location.href, {
 
 socket.on('connect', function () {
 
+    let username = prompt("Type your nickname: ")
+    while (username == "" || username == undefined) {
+        username = prompt("Your nickname can't be empty! Type your nickname: ")
+    }
+    socket.emit('adduser', username)
+
 
 })
 

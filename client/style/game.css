@@ -1,5 +1,72 @@
-*{
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+* {
     image-rendering: pixelated;
     image-rendering: -moz-crisp-edges;
     image-rendering: crisp-edges;
+
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    color: #d4d4d4;
+    user-select: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #1e1e1e;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin: 13px 0;
+}
+
+h1 {
+    text-decoration: underline double;
+}
+
+h2 {
+    text-decoration: underline wavy;
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 119px 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "header"
+        "main";
+}
+
+header {
+    grid-area: header;
+    background-color: rgb(37, 37, 38);
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: calc(100vh - 120px);
+    gap: 0px 0px;
+    grid-template-areas:
+        "player1 player2";
+    grid-area: main;
+}
+
+#player1 {
+    grid-area: player1;
+    border-right: 1px solid #2d2d2d;
+}
+
+#player2 {
+    grid-area: player2;
+    border-left: 1px solid #2d2d2d;
 }

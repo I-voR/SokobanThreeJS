@@ -1,8 +1,8 @@
 import disconnect from './disconnect.js';
 import pairing from './pairing.js';
-export var connect = {
+export const connect = {
     socketFunc: (io) => {
-
+        io.on("connection", socket => { /* ... */ });
         io.sockets.on('connection', function (socket) {
             socket.emit('debugoutput', "test emitu")
             socket.on('adduser', function (username) {
@@ -13,18 +13,9 @@ export var connect = {
                 console.log(socket.username)
             })
 
-            socket.on('disconnect', function () {
 
-                console.log('disconnected')
-                if (socket.data.username != undefined) {
-                    console.log(socket.data.username)
-                    GLOBALlobby = GLOBALlobby.filter(username => username != socket.data.username)
-                    console.log(GLOBALlobby)
-                }
 
-            });
-
-            //disconnect.socketFunc(socket)
+            disconnect.socketFunc(socket)
             pairing.socketFunc(io, socket)
 
         });

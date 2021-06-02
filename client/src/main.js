@@ -30,4 +30,11 @@ function debug() {
 socket.on('debugoutput', function (a) {
     console.log(a)
 })
+socket.on('leavePoczekalnia', function (a) {
+    socket.emit("createSession")
+})
+
+function roomTest() {
+
+}
 

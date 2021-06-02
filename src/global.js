@@ -9,7 +9,7 @@ export function globalSetter() {
     const __dirname = dirname(__filename);
 
     global.GLOBALlobby = [];
-    global.GLOBALmaps = readFileSync(__dirname + '/../data/maps.json');
+    global.GLOBALmaps = JSON.parse(readFileSync(__dirname + '/../data/maps.json'));
 }
 export default globalSetter
 

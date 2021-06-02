@@ -16,13 +16,15 @@ export var connect = {
                 socket.username = username
                 console.log(socket.username)
                 socket.join('poczekalnia')
+
+                pairing.socketFunc(io, socket)
+                map.Post(socket)
             })
 
 
 
             disconnect.socketFunc(socket)
-            pairing.socketFunc(io, socket)
-            map.Post(socket)
+
         });
 
 

@@ -8,8 +8,11 @@ export var pairing = {
 
         socket.on('createSession', function () {
             let users = GLOBALlobby
-            let roomname = GLOBALlobby[0] + '-' + GLOBALlobby[1]
+            let roomname = users[0] + '-' + users[1]
+            socket.leave('poczekalnia')
             socket.join(roomname)
+
+            socket.emit('debugoutput', roomname)
         })
 
 

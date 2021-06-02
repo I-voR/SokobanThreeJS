@@ -1,6 +1,7 @@
 import disconnect from './disconnect.js';
 import pairing from './pairing.js';
-export const connect = {
+import map from './mapPost.js'
+export var connect = {
     socketFunc: (io) => {
         io.on("connection", socket => { /* ... */ });
         io.sockets.on('connection', function (socket) {
@@ -17,7 +18,7 @@ export const connect = {
 
             disconnect.socketFunc(socket)
             pairing.socketFunc(io, socket)
-
+            map.Post(socket)
         });
 
 

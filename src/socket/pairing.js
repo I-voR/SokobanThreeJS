@@ -1,5 +1,4 @@
 
-
 export var pairing = {
     socketFunc: (io, socket) => {
 

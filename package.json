@@ -20,8 +20,7 @@
   "dependencies": {
     "ajax": "0.0.4",
     "express": "^4.17.1",
-    "socket.io": "^4.0.1",
-    "three": "^0.129.0"
+    "socket.io": "^4.0.1"
   },
   "type": "module"
 }

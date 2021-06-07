@@ -37,7 +37,7 @@ const events = {
 
         socket.on('positionUpdate', function (object) {
 
-            console.log(object.player + " " + object.coords)
+            console.log(object)
 
         })
 

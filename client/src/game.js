@@ -5,3 +5,4 @@ socket.on('sessionready', function () {
 socket.on('postMap', function (mapJSON) {
     console.log(mapJSON)
 })
+

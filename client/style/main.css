@@ -7,7 +7,6 @@
 
     font-weight: 300;
     font-family: 'Roboto', sans-serif;
-    color: #d4d4d4;
     user-select: none;
 }
 
@@ -15,10 +14,6 @@ html,
 body {
     margin: 0;
     padding: 0;
-}
-
-body {
-    background-color: #1e1e1e;
 }
 
 h1,
@@ -35,10 +30,27 @@ h2 {
     text-decoration: underline wavy;
 }
 
+h3 {
+    --center: calc(25vw - 60px);
+    position: absolute;
+    font-style: italic;
+    text-align: center;
+    top: 70px;
+    width: 120px;
+}
+
+#p1 {
+    left: var(--center);
+}
+
+#p2 {
+    right: var(--center);
+}
+
 .grid-container {
     display: grid;
     grid-template-columns: 1fr;
-    grid-template-rows: 119px 1fr;
+    grid-template-rows: 120px 1fr;
     gap: 0px 0px;
     grid-template-areas:
         "header"
@@ -47,7 +59,6 @@ h2 {
 
 header {
     grid-area: header;
-    background-color: rgb(37, 37, 38);
 }
 
 main {
@@ -63,10 +74,15 @@ main {
 
 #player1 {
     grid-area: player1;
-    border-right: 1px solid #2d2d2d;
 }
 
 #player2 {
     grid-area: player2;
-    border-left: 1px solid #2d2d2d;
+}
+
+#player1 canvas,
+#player2 canvas {
+    position: absolute;
+    width: calc(50vw - 1px) !important;
+    height: calc(100vh - 120px) !important;
 }

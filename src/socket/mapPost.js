@@ -1,11 +1,12 @@
 export const map = {
-    Post: (socket) => {
+    Post: (socket, roomname) => {
 
         socket.on('requestMap', function () {
             //global jsona z mapami
             let mapJSON = GLOBALmaps
+            let index = Math.floor(Math.random() * (mapJSON.length))
 
-            socket.emit('postMap', mapJSON)
+            socket.to(roomname).emit('postMap', mapJSON[index])
         })
 
 

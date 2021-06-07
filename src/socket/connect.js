@@ -1,6 +1,6 @@
 import disconnect from './disconnect.js';
 import pairing from './pairing.js';
-import map from './mapPost.js'
+
 export var connect = {
     socketFunc: (io) => {
         io.on("connection", socket => { /* ... */ });
@@ -13,12 +13,13 @@ export var connect = {
                 GLOBALlobby.push(username)
                 console.log(GLOBALlobby)
 
-                socket.username = username
-                console.log(socket.username)
+                socket.data.username = username
+                console.log(socket.data.username)
                 socket.join('poczekalnia')
+                socket.data.room = 'poczekalnia'
 
                 pairing.socketFunc(io, socket)
-                map.Post(socket)
+
             })
 
 

@@ -20,6 +20,8 @@ socket.on('connect', function () {
     }
     socket.emit('adduser', username)
 
+    events.main()
+
 
 })
 
@@ -34,7 +36,5 @@ socket.on('leavePoczekalnia', function (a) {
     socket.emit("createSession")
 })
 
-function roomTest() {
 
-}
 

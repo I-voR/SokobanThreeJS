@@ -1,4 +1,6 @@
-
+//import { events } from '../../client/src/events.js';
+import map from './mapPost.js'
+import events from './events.js'
 export var pairing = {
     socketFunc: (io, socket) => {
 
@@ -11,8 +13,12 @@ export var pairing = {
             let roomname = users[0] + '-' + users[1]
             socket.leave('poczekalnia')
             socket.join(roomname)
-
+            socket.data.room = roomname
             socket.emit('debugoutput', roomname)
+            socket.emit('sessionready')
+
+            map.Post(socket, roomname)
+            events.handler(socket, roomname)
         })
 
 

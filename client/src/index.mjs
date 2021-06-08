@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import Player from './components/Player.js'
-import MapLoader from './MapLoader.mjs'
+import Main from './components/Main.mjs'
+import MapLoader from './components/MapLoader.mjs'
 
 //const { $CombinedState } = require('redux')
 console.log(location.href)
@@ -11,7 +11,8 @@ console.log(location.href)
         objects1: [],
         objects2: []
     }
-}((1,eval)('this')))
+// eslint-disable-next-line no-eval
+}((1, eval)('this')))
 
 const socket = io(location.href, {
     'force new connection': true,
@@ -64,13 +65,9 @@ function init() {
 
     socket.emit('requestMap')
     socket.on('postMap', function(map) {
-        VARS.map = map
-        VARS.objects1 = mapLoader.load(VARS.map)
-        VARS.objects2 = mapLoader.load(VARS.map)
-        new Player(player1, VARS.objects1)
-        new Player(player2, VARS.objects2)
+        new Main(player1, map)
+        new Main(player2, map)
     })
 }
 
 init()
-

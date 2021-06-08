@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
-import { PerspectiveCamera } from 'https://cdn.skypack.dev/three@0.129.0'
+import { PerspectiveCamera } from 'three'
+//  from 'https://cdn.skypack.dev/three@0.129.0'
 
 export default class Camera extends PerspectiveCamera {
     constructor(fov, width, height) {        

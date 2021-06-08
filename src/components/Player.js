@@ -1,7 +1,10 @@
 /* eslint-disable require-jsdoc */
 // import { MD2Loader } from './MD2Loader.js'
-import { Mesh, TextureLoader, MeshBasicMaterial } from 'https://cdn.skypack.dev/three@0.129.0'
-import { MD2Loader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/MD2Loader.js'
+/* import { Mesh, TextureLoader, MeshBasicMaterial } from 'https://cdn.skypack.dev/three@0.129.0'
+import { MD2Loader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/MD2Loader.js'*/
+
+import { Mesh, TextureLoader, MeshBasicMaterial } from 'three'
+import { MD2Loader } from 'MD2Loader.js'
 
 const PlayerTex = '../../assets/Player1.jpg'
 const PlayerMD2 = '../../assets/Player1.md2'

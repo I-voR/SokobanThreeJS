@@ -1,6 +1,6 @@
 /* eslint-disable require-jsdoc */
-import Ico from './Ico.mjs'
-// import Player from './Player.mjs'
+import Ico from './Ico.js'
+// import Player from './Player.js'
 
 export default class MapLoader {
     constructor() { }

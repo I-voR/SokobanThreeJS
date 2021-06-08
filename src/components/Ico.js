@@ -4,7 +4,8 @@ import {
     MeshNormalMaterial,
     Mesh,
     DoubleSide,
-} from 'https://cdn.skypack.dev/three@0.129.0'
+//} from 'https://cdn.skypack.dev/three@0.129.0'
+} from 'three'
 
 export default class Ico extends Mesh {
     constructor() {

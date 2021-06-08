@@ -6,11 +6,12 @@ import {
     Vector3,
     GridHelper,
     Scene
-} from 'https://cdn.skypack.dev/three@0.129.0'
+// } from 'https://cdn.skypack.dev/three@0.129.0'
+} from 'three'
 
-import MapLoader from './MapLoader.mjs'
-import Renderer from './Renderer.mjs'
-import Camera from './Camera.mjs'
+import MapLoader from './MapLoader.js'
+import Renderer from './Renderer.js'
+import Camera from './Camera.js'
 
 export default class Main {
     constructor(container, map) {

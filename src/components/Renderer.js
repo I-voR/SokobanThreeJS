@@ -1,5 +1,6 @@
 /* eslint-disable require-jsdoc */
-import { WebGLRenderer } from 'https://cdn.skypack.dev/three@0.129.0'
+import { WebGLRenderer } from 'three'
+// } from 'https://cdn.skypack.dev/three@0.129.0'
 
 export default class Renderer extends WebGLRenderer {
     constructor(container) {

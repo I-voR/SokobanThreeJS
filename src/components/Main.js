@@ -1,12 +1,12 @@
 /* eslint-disable require-jsdoc */
 // import Stats from 'three/examples/jsm/libs/stats.module.js'
+//from 'https://cdn.skypack.dev/three@0.129.0'
 import {
     LoadingManager,
     Clock,
     Vector3,
     GridHelper,
     Scene
-// } from 'https://cdn.skypack.dev/three@0.129.0'
 } from 'three'
 
 import MapLoader from './MapLoader.js'
@@ -23,19 +23,17 @@ export default class Main {
         this.scene = new Scene()
         this.renderer = new Renderer(this.container)
 
-        this.camera = new Camera(30, (window.innerWidth / 2 - 30), window.innerHeight)
-        this.camera.position.set(0, 10, 0)
-        this.camera.lookAt(new Vector3(-100, 100, 0))
+        this.camera = new Camera(30, (window.innerWidth / 2), window.innerHeight)
+        this.camera.position.set(300, 100, 0)
+        // this.camera.position.set(0, 500, 0)
+        this.camera.lookAt(new Vector3(0, 0, 0))
         
         this.clock = new Clock()
         this.manager = new LoadingManager()
-        // this.stats = new Stats()
-        const gridHelper = new GridHelper(1000, 10)
+        const gridHelper = new GridHelper(250, 25)
 
         this.mapLoader = new MapLoader()
         this.objects = this.mapLoader.load(this.map)
-
-        console.debug(this.objects)
 
         // this.player = this.objects[0]
         // this.player.load()
@@ -66,9 +64,10 @@ export default class Main {
         )
 
         this.renderer.render(this.scene, this.camera)
-        this.objects.forEach(obj => {
-            obj.update()
-        })
+
+        // this.objects.forEach(obj => {
+        //     obj.update()
+        // })
 
         requestAnimationFrame(this.render.bind(this))
     }

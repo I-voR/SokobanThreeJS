@@ -5,7 +5,7 @@ import {
 	Float32BufferAttribute,
 	Loader,
 	Vector3
-} from 'https://cdn.skypack.dev/three@0.129.0';
+} from 'three';
 
 var MD2Loader = function ( manager ) {
 

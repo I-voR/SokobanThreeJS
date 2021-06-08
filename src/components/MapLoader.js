@@ -1,12 +1,25 @@
 /* eslint-disable require-jsdoc */
-import Ico from './Ico.js'
-// import Player from './Player.js'
+import Floor from './Floor.js'
+import Player from './Player.js'
+import Wall from './Wall.js'
 
 export default class MapLoader {
     constructor() { }
 
     load(map) {
-        // return [new Player(this.scene, this.manager), new Ico()]
-        return [new Ico()]
+        console.log(map)
+        const size = 10
+
+        let objs = [new Floor(map[0].length * size, map.length * size)]
+        for (let i = 0; i < map[0].length; i++) {
+            for (let j = 0; j < map.length; j++) {
+                console.log(i, j)
+                if (map[j][i] === '#') objs.push(
+                    new Wall(size, i * size - ((map[0].length * size - size) / 2),
+                    j * size - parseInt((map.length * size - size) / 2))
+                )
+            }
+        }
+        return objs
     }
 }

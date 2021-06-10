@@ -34,13 +34,9 @@ const events = {
         return ""
     },
     socketHandle: () => {
-
         socket.on('positionUpdate', function (object) {
-
             console.log(object)
-
         })
-
     }
 
 }

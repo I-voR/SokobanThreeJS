@@ -20,8 +20,6 @@ export var pairing = {
             map.Post(socket, roomname)
             events.handler(socket, roomname)
         })
-
-
     }
 };
 export default pairing

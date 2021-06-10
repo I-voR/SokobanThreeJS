@@ -77,8 +77,8 @@ function init() {
     // let map = "#######\n#.   .#\n#  $  #\n# $@$ #\n#  $  #\n#.   .#\n#######"
     let map = "########\n#.  $ .#\n#.$$$$.#\n#. @$ .#\n########"
 
-    new Main(player1, map.split('\n'))
-    new Main(player2, map.split('\n'))
+    new Main(player1, map.split('\n'), true)
+    new Main(player2, map.split('\n'), false)
 }
 
 init()

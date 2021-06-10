@@ -6,11 +6,12 @@ import { MD2Loader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/lo
 import { Mesh, TextureLoader, MeshBasicMaterial } from 'three'
 import { MD2Loader } from './MD2Loader.js'
 
-const PlayerTex = '../../assets/Player1.jpg'
-const PlayerMD2 = '../../assets/Player1.md2'
+import player1Tex from '../assets/player1.jpg'
+import player2Tex from '../assets/player2.jpg'
 
 export default class Player {
-    constructor(scene, manager) {
+    constructor(scene, manager, isPlayer) {
+        this.isPlayer = isPlayer
         this.scene = scene
         this.mesh = null
         this.manager = manager
@@ -25,7 +26,7 @@ export default class Player {
                 this.geometry = geometry
 
                 this.mesh = new Mesh(geometry, new MeshBasicMaterial({
-                    map: new TextureLoader().load(PlayerTex),
+                    map: new TextureLoader().load(this.isPlayer ? player1Tex : player2Tex),
                     morphTargets: true
                 }))
                 

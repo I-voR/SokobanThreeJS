@@ -51,6 +51,11 @@ socket.on('sessionready', function() {
     socket.emit('requestMap')
 })
 
+
+socket.on('positionUpdate', function(dir) {
+    Config.enemyMove = dir
+})
+
 /** 
 * Used to init WebGL
 */

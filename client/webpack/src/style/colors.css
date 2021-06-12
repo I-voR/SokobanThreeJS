@@ -1,0 +1,26 @@
+:root {
+    --font-color: #d4d4d4;
+    --body-bg: #1e1e1e;
+    --header-bg: #252526;
+    --area-divider: #2d2d2d;
+}
+
+* {
+    color: var(--font-color);
+}
+
+body {
+    background-color: var(--body-bg);
+}
+
+header {
+    background-color: var(--header-bg);
+}
+
+#player1 {
+    border-right: 1px solid var(--area-divider);
+}
+
+#player2 {
+    border-left: 1px solid var(--area-divider);
+}

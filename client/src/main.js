@@ -39,3 +39,8 @@ socket.on('leavePoczekalnia', function (a) {
 
 
 
+
+socket.emit('requestMap')
+socket.on('postMap', function(map) {
+    console.log(map)
+})

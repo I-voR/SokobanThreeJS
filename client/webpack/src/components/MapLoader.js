@@ -8,15 +8,16 @@ export default class MapLoader {
 
     load() {
         let size = Config.size,
-            width = Config.width,
-            height = Config.height
+            width = Config.map[0].length,
+            height = Config.map.length
             
         let objs = {
             floor: new Floor(width * size, height * size),
             player: { x: null, z: null },
             boxes: [],
             goals: [],
-            walls: []
+            walls: [],
+            collider: null
         }
 
         let obj
@@ -26,8 +27,8 @@ export default class MapLoader {
                 switch (Config.map[j][i]) {
                 case '#':
                     obj = new Cuboid(
-                        size, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 0
+                        size, size * i,
+                        size * j, 0
                     )
                     objs.walls.push(obj)
                     break
@@ -35,44 +36,47 @@ export default class MapLoader {
                 case '@':
                     objs.player.x = i
                     objs.player.z = j
+                    objs.collider = new Cuboid(30, 0, 0, 3)
                     break
 
                 case '+':
                     objs.player.x = i
                     objs.player.z = j
+                    objs.collider = new Cuboid(30, 0, 0, 3)
+
                     obj = new Cuboid(
-                        size * 3 / 5, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 2
+                        size * 3 / 5, size * i,
+                        size * j, 2
                     )
                     objs.goals.push(obj)
                     break
 
                 case '$':
                     obj = new Cuboid(
-                        size / 2, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 1
+                        size / 2, size * i,
+                        size * j, 1
                     )
                     objs.boxes.push(obj)
                     break
 
                 case '*':
                     obj = new Cuboid(
-                        size / 2, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 1
+                        size / 2, size * i,
+                        size * j, 1
                     )
                     objs.boxes.push(obj)
 
                     obj = new Cuboid(
-                        size * 3 / 5, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 2
+                        size * 3 / 5, size * i,
+                        size * j, 2
                     )
                     objs.goals.push(obj)
                     break
 
                 case '.':
                     obj = new Cuboid(
-                        size * 3 / 5, size * (2 * i - width + 1) / 2,
-                        size * (2 * j - height + 1) / 2, 2
+                        size * 3 / 5, size * i,
+                        size * j, 2
                     )
                     objs.goals.push(obj)
                     break

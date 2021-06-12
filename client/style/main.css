@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap');
+
+* {
+    image-rendering: pixelated;
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+
+    font-weight: 300;
+    font-family: 'Roboto', sans-serif;
+    user-select: none;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+h1,
+h2 {
+    text-align: center;
+    margin: 13px 0;
+}
+
+h1 {
+    text-decoration: underline double;
+}
+
+h2 {
+    text-decoration: underline wavy;
+}
+
+h3 {
+    --center: calc(25vw - 60px);
+    position: absolute;
+    font-style: italic;
+    text-align: center;
+    top: 70px;
+    width: 120px;
+}
+
+#p1 {
+    left: var(--center);
+}
+
+#p2 {
+    right: var(--center);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 120px 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "header"
+        "main";
+}
+
+header {
+    grid-area: header;
+}
+
+main {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    height: calc(100vh - 120px);
+    gap: 0px 0px;
+    grid-template-areas:
+        "player1 player2";
+    grid-area: main;
+}
+
+#player1 {
+    grid-area: player1;
+}
+
+#player2 {
+    grid-area: player2;
+}
+
+#player1 canvas,
+#player2 canvas {
+    position: absolute;
+    width: calc(50vw - 1px) !important;
+    height: calc(100vh - 120px) !important;
+}

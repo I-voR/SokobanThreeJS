@@ -1,58 +1,87 @@
 /* eslint-disable require-jsdoc */
-import Floor from './Floor.js'
-import Player from './Player.js'
-import Cube from './Cube.js'
-
-import wallTex from '../assets/wall.bmp'
-import crateTex from '../assets/crate.jpg'
+import Floor from './Floor'
+import Cuboid from './Cuboid'
+import Config from './Config'
 
 export default class MapLoader {
     constructor() {}
 
-    load(map) {
-        // console.log(map)
-        const size = 10
+    load() {
+        let size = Config.size,
+            width = Config.width,
+            height = Config.height
+            
+        let objs = {
+            floor: new Floor(width * size, height * size),
+            player: { x: null, z: null },
+            boxes: [],
+            goals: [],
+            walls: []
+        }
 
-        let objs = [new Floor(map[0].length * size, map.length * size)]
-        let obj, player
+        let obj
 
-        for (let i = 0; i < map[0].length; i++) {
-            for (let j = 0; j < map.length; j++) {
-
-                switch (map[j][i]) {
+        for (let i in Config.map[0]) {
+            for (let j in Config.map) {
+                switch (Config.map[j][i]) {
                 case '#':
-                    obj = new Cube(
-                        size,
-                        i * size - ((map[0].length * size - size) / 2),
-                        j * size - parseInt((map.length * size - size) / 2),
-                        wallTex,
-                        false
+                    obj = new Cuboid(
+                        size, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 0
                     )
+                    objs.walls.push(obj)
                     break
 
                 case '@':
-                    player = { x: i, z: j }
+                    objs.player.x = i
+                    objs.player.z = j
                     break
 
                 case '+':
+                    objs.player.x = i
+                    objs.player.z = j
+                    obj = new Cuboid(
+                        size * 3 / 5, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 2
+                    )
+                    objs.goals.push(obj)
                     break
 
                 case '$':
+                    obj = new Cuboid(
+                        size / 2, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 1
+                    )
+                    objs.boxes.push(obj)
                     break
 
                 case '*':
+                    obj = new Cuboid(
+                        size / 2, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 1
+                    )
+                    objs.boxes.push(obj)
+
+                    obj = new Cuboid(
+                        size * 3 / 5, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 2
+                    )
+                    objs.goals.push(obj)
                     break
 
                 case '.':
+                    obj = new Cuboid(
+                        size * 3 / 5, size * (2 * i - width + 1) / 2,
+                        size * (2 * j - height + 1) / 2, 2
+                    )
+                    objs.goals.push(obj)
                     break
 
                 default:
                     break
                 }
-
-                objs.push(obj)
             }
         }
-        return [player, objs]
+        return objs
     }
 }

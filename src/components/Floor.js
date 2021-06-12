@@ -15,12 +15,11 @@ export default class Floor extends Mesh {
         super(
             new PlaneGeometry(w, h),
             new MeshBasicMaterial( {
-                color: "#FFFFFF",
+                color: '#FFFFFF',
                 side: DoubleSide,
                 map: new TextureLoader().load(floorTex)
             } )
         )
-        console.log(this.material.map)
         this.material.map.wrapS = RepeatWrapping
         this.material.map.wrapT = RepeatWrapping
         this.material.map.repeat.set(w / 4, h / 4)

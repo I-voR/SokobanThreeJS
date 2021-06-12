@@ -1,18 +1,9 @@
 /* eslint-disable no-unused-vars */
-import Main from './components/Main.js'
-import MapLoader from './components/MapLoader.js'
+import Config from './components/Config'
+import Main from './components/Main'
 
 //const { $CombinedState } = require('redux')
 console.log(location.href)
-
-;(function(globals){
-    globals.VARS = {
-        map: [],
-        objects1: [],
-        objects2: []
-    }
-// eslint-disable-next-line no-eval
-}((1, eval)('this')))
 
 /*const socket = io(location.href, {
     'force new connection': true,
@@ -20,8 +11,6 @@ console.log(location.href)
     'timeout': 10001,
     'transports': ['websocket']
 })*/
-
-const mapLoader = new MapLoader()
 
 //var socket = io.connect('http://localhost:8000')
 
@@ -42,11 +31,11 @@ socket.on('leavePoczekalnia', function(a) {
     socket.emit('createSession')
 })*/
 
-let user = prompt('Type your nickname: ')
-    while (user === '' || user === null) {
-        console.log(user)
-        user = prompt('Your nickname can\'t be empty! Type your nickname: ')
-    }
+// let user = prompt('Type your nickname: ')
+// while (user === '' || user === null) {
+//     console.log(user)
+//     user = prompt('Your nickname can\'t be empty! Type your nickname: ')
+// }
 
 /** 
 * Used to emit debug data
@@ -75,10 +64,11 @@ function init() {
         new Main(player2, map)
     })*/
     // let map = "#######\n#.   .#\n#  $  #\n# $@$ #\n#  $  #\n#.   .#\n#######"
-    let map = "########\n#.  $ .#\n#.$$$$.#\n#. @$ .#\n########"
+    let map = '########\n#.  $ .#\n#.$$$$.#\n#. @$ .#\n########'
+    Config.map = map.split('\n')
 
-    new Main(player1, map.split('\n'), true)
-    new Main(player2, map.split('\n'), false)
+    new Main(player1, true)
+    new Main(player2, false)
 }
 
 init()

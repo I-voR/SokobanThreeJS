@@ -31,12 +31,12 @@ h2 {
 }
 
 h3 {
-    --center: calc(25vw - 60px);
+    --center: calc(25vw - 120px);
     position: absolute;
     font-style: italic;
     text-align: center;
     top: 70px;
-    width: 120px;
+    width: 240px;
 }
 
 #p1 {

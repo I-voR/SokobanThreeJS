@@ -1,13 +1,12 @@
 /* eslint-disable require-jsdoc */
-// import { MD2Loader } from './MD2Loader.js'
-/* import { Mesh, TextureLoader, MeshBasicMaterial } from 'https://cdn.skypack.dev/three@0.129.0'
-import { MD2Loader } from 'https://cdn.skypack.dev/three@0.129.0/examples/jsm/loaders/MD2Loader.js'*/
-
 import { Mesh, TextureLoader, MeshBasicMaterial } from 'three'
 import { MD2Loader } from './MD2Loader.js'
 
 import player1Tex from '../assets/player1.jpg'
 import player2Tex from '../assets/player2.jpg'
+
+import player1MD2 from '../assets/player1.md2'
+import player2MD2 from '../assets/player2.md2'
 
 export default class Player {
     constructor(scene, manager, isPlayer) {
@@ -19,10 +18,12 @@ export default class Player {
     }
 
     load() {
+        let model = this.isPlayer ? player1MD2 : player2MD2
+
         new MD2Loader(this.manager).load(
-            PlayerMD2,
+            model,
             geometry => {
-                console.log(geometry.animations)
+                // console.log(geometry.animations)
                 this.geometry = geometry
 
                 this.mesh = new Mesh(geometry, new MeshBasicMaterial({

@@ -7,8 +7,8 @@ import {
     TextureLoader
 } from 'three'
 
-import wallTex from '../assets/wall.bmp'
-import boxTex from '../assets/box.jpg'
+import wallTex from '../assets/wall.png'
+import boxTex from '../assets/box.png'
 import goalTopTex from '../assets/goal_top.png'
 import goalSideTex from '../assets/goal_side.png'
 

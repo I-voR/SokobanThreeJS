@@ -137,29 +137,38 @@ export default class Collisions {
     }
 
     playerGoalCollision() {
+        let bool
+
         for (let i in this.objects.goals) {
-            this.objects.goals[i].update(this.detectCollisions(this.objects.collider, this.objects.goals[i]))
+            bool = this.detectCollisions(this.objects.collider, this.objects.goals[i])
+            if (bool) {
+                this.objects.goals[i].update(true)
+                return
+            }
         }
     }
 
     boxGoalCollision() {
-        let ins = []
+        for (let i in this.objects.goals) {
+            for (let j in this.objects.boxes) {
+                this.objects.goals[i].update(this.detectCollisions(this.objects.goals[i], this.objects.boxes[j]))
+                break
+            }
+        }
+    }
+
+    gameEndCheck() {
+        let c = 0
 
         for (let i in this.objects.goals) {
             for (let j in this.objects.boxes) {
                 if (this.detectCollisions(this.objects.goals[i], this.objects.boxes[j])) {
-                    ins.push(i)
+                    c++
                     break
                 }
             }
         }
 
-        // if (ins.length > 0) {
-        //     console.log(this.objects.goals[ins[i]])
-        // }
-
-        // for (let i in ins) {
-        //     console.log(this.objects.goals[parseInt(ins[i])]) // .update(true)
-        // }
+        return c === this.objects.goals.length
     }
 }

@@ -10,7 +10,6 @@ const socket = io(location.href.substring(0, location.href.lastIndexOf('/')) + '
     'transports': ['websocket']
 })
 
-
 socket.on('connect', function() {
     let user = prompt('Type your nickname: ')
     while (user === '' || user === null) {

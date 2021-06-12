@@ -20,6 +20,7 @@ import Collisions from './Collisions'
 export default class Main {
     constructor(container, isPlayer) {
         document.getElementById('moves').innerText = 0
+        this.socket = Config.socket
         this.isLoaded = null
         this.animation = null
         this.collider = null
@@ -153,8 +154,13 @@ export default class Main {
             }
         }
 
-        this.collisions.boxGoalCollision()
         this.collisions.playerGoalCollision()
+        this.collisions.boxGoalCollision()
+
+        if (this.collisions.gameEndCheck()) {
+            this.socket.emit('end')
+            return
+        }
 
         requestAnimationFrame(this.render.bind(this))
     }

@@ -1,12 +1,14 @@
 import main from './src/main.js'
 import express from 'express'
 import globalSetter from './src/global.js'
+
 //const express = require("express")
 globalSetter()
 const app = express()
 const PORT = process.env.PORT || 3000
 
 //var main = require('./src/main')
+
 main.init()
 
 

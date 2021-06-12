@@ -1,4 +1,5 @@
 import express from 'express'
+import crypto from 'crypto'
 import { createServer } from "http";
 import { Server } from "socket.io";
 
@@ -73,21 +74,26 @@ export const main = {
 
                     socket.on('requestMap', function () {
                         //global jsona z mapami
-                        let mapJSON = GLOBALmaps
-                        let index = Math.floor(Math.random() * (mapJSON.length))
 
+                        var md5sum = crypto.createHash('md5');
+                        var mapNumber = socket.data.room
+                        md5sum.update(mapNumber);
+                        mapNumber = md5sum.digest('hex');
+
+
+
+                        let mapJSON = GLOBALmaps
+                        let index = parseInt(mapNumber.replace(/\D/g, '')) % mapJSON.length
+                        console.log(index)
                         socket.to(roomname).emit('postMap', mapJSON[index])
                     })
 
 
-                    socket.on('move', function (direction, position) {
-                        let data = { player: socket.data.username, coords: '' }
+                    socket.on('move', function (direction) {
 
-                        socket.to(roomname).emit('positionUpdate', data)
+                        socket.to(roomname).emit('positionUpdate', direction)
+                        console.log('moce' + roomname + ' ' + direction)
 
-
-                        console.log("move " + direction + " " + position)
-                        console.log(roomname + ' ' + data)
                     })
 
 

@@ -10,6 +10,7 @@ const socket = io(location.href.substring(0, location.href.lastIndexOf('/')) + '
     'transports': ['websocket']
 })
 
+
 socket.on('connect', function() {
     let user = prompt('Type your nickname: ')
     while (user === '' || user === null) {
@@ -46,7 +47,6 @@ function roomTest() {
     'pass'
 }
 
-
 socket.on('sessionready', function() {
     socket.emit('requestMap')
 })
@@ -55,6 +55,7 @@ socket.on('sessionready', function() {
 * Used to init WebGL
 */
 function init() {
+    Config.socket = socket
     const player1 = document.getElementById('player1')
     const player2 = document.getElementById('player2')
 

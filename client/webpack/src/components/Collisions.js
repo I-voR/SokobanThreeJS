@@ -7,8 +7,33 @@ export default class Collisions {
         this.objects = objects
     }
 
+    searchCrate(x, z, dir) {
+        let x1 = x, z1 = z
+        
+        switch (dir) {
+        case 'u':
+            z1 -= Config.size
+            break
+        case 'l':
+            x1 -= Config.size
+            break
+        case 'd':
+            z1 += Config.size
+            break
+        case 'r':
+            x1 += Config.size
+            break
+        }
+
+        for (let i in this.objects.boxes) {
+            if (
+                this.objects.boxes[i].position.x === x1 &&
+                this.objects.boxes[i].position.z === z1
+            ) return this.objects.boxes[i]
+        }
+    }
+
     playerWallCollision(x, z, dir) {
-        console.log(this.objects)
         let x1 = x, z1 = z
 
         switch (dir) {
@@ -99,5 +124,26 @@ export default class Collisions {
         for (let i in this.objects.goals) {
             this.objects.goals[i].update(this.detectCollisions(this.objects.collider, this.objects.goals[i]))
         }
+    }
+
+    boxGoalCollision() {
+        let ins = []
+
+        for (let i in this.objects.goals) {
+            for (let j in this.objects.boxes) {
+                if (this.detectCollisions(this.objects.goals[i], this.objects.boxes[j])) {
+                    ins.push(i)
+                    break
+                }
+            }
+        }
+
+        // if (ins.length > 0) {
+        //     console.log(this.objects.goals[ins[i]])
+        // }
+
+        // for (let i in ins) {
+        //     console.log(this.objects.goals[parseInt(ins[i])]) // .update(true)
+        // }
     }
 }

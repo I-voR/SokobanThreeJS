@@ -25,6 +25,7 @@ export default class Main {
         this.collider = null
         this.container = container
         this.isPlayer = isPlayer
+        this.socket = Config.socket
 
         this.scene = new Scene()
         this.clock = new Clock()
@@ -82,6 +83,10 @@ export default class Main {
     }
 
     render() {
+        this.socket.on('positionUpdate', function(dir) {
+            console.log(dir)
+        })
+
         let delta = this.clock.getDelta()
         if (this.animation) this.animation.update(delta)
 
@@ -94,8 +99,10 @@ export default class Main {
 
         if (this.player.mesh && this.isPlayer) { 
             if (Config.move) {
-                this.player.mesh.translateX(1)
-                this.objects.collider.translateX(1)
+                this.player.mesh.translateX(Config.speed)
+                this.objects.collider.translateX(Config.speed)
+                if (Config.moveCrate !== null) Config.moveCrate.translateX(Config.speed)
+
                 if (parseInt(this.player.mesh.position.x) % (Config.size) === 0 &&
                 parseInt(this.player.mesh.position.z) % (Config.size) === 0) {
                     Config.move = false
@@ -104,6 +111,7 @@ export default class Main {
             }
         }
 
+        this.collisions.boxGoalCollision()
         this.collisions.playerGoalCollision()
 
         requestAnimationFrame(this.render.bind(this))

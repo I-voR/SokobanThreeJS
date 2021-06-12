@@ -1,5 +1,7 @@
 export default {
     map: [],
     move: false,
-    size: 70
+    size: 70,
+    moveCrate: null,
+    speed: 2
 }

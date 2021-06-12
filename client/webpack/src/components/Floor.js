@@ -23,7 +23,7 @@ export default class Floor extends Mesh {
         )
         this.material.map.wrapS = RepeatWrapping
         this.material.map.wrapT = RepeatWrapping
-        this.material.map.repeat.set(w / Config.map[0].length, h / Config.map.length)
+        this.material.map.repeat.set(w / (Config.map[0].length * 5), h / (Config.map.length * 5))
         this.rotation.x = Math.PI / 2
         this.position.set((Config.map[0].length - 1) * Config.size / 2, 0, (Config.map.length - 1) * Config.size / 2)
     }

@@ -121,6 +121,8 @@ export default class Keyboard {
             this.socket.emit('move', collision)
             this.animation.playAnim('Run')
             document.getElementById('moves').innerText++
+            Config.solution += collision
+            console.log(Config.solution)
         }
     }
 }

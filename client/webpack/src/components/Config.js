@@ -6,5 +6,6 @@ export default {
     speed: 2,
     enemyMove: '',
     enemyBox: null,
-    enemyMoving: false
+    enemyMoving: false,
+    solution: ''
 }

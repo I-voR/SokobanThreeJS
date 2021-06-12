@@ -87,6 +87,7 @@ export default class Collisions {
                 this.objects.boxes[i].position.z === z1
             ) {
                 if (this.boxWallCollision(x2, z2)) return false
+                else if (this.boxBoxCollision(x2, z2)) return false
                 else return dir.toUpperCase()
             }
         }
@@ -99,6 +100,19 @@ export default class Collisions {
             if (
                 this.objects.walls[i].position.x === x2 &&
                 this.objects.walls[i].position.z === z2
+            ) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    boxBoxCollision(x2, z2) {
+        for (let i in this.objects.boxes) {
+            if (
+                this.objects.boxes[i].position.x === x2 &&
+                this.objects.boxes[i].position.z === z2
             ) {
                 return true
             }

@@ -120,8 +120,6 @@ export default class Main {
                     this.player.mesh.rotation.y = Math.PI / 2
                     this.objects.collider.rotation.y = Math.PI / 2
                     if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = Math.PI / 2 }
-                    console.log(Config.enemyBox)
-                    // if (Config.enemyMove === 'U') 
                     break
                 case 'l':
                 case 'L':

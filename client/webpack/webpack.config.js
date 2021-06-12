@@ -7,7 +7,7 @@ module.exports = {
     },
     mode: 'development',
     devServer: {
-        port: 8080
+        port: 80
     },
     plugins: [
         new HtmlWebpackPlugin({

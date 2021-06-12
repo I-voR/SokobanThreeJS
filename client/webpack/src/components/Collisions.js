@@ -3,36 +3,84 @@
 import Config from './Config'
 
 export default class Collisions {
-    constructor() {
-        this.size = Config.size
-        this.width = Config.width
-        this.height = Config.height
+    constructor(objects) {
+        this.objects = objects
     }
 
-    detectWall(posX, posZ, dir) {
-        let x1 = parseInt(posX / this.size + (this.width) / 2)
-        let z1 = parseInt(posZ / this.size + (this.height) / 2)
+    playerWallCollision(x, z, dir) {
+        console.log(this.objects)
+        let x1 = x, z1 = z
+
+        switch (dir) {
+        case 'u':
+            z1 -= Config.size
+            break
+        case 'l':
+            x1 -= Config.size
+            break
+        case 'd':
+            z1 += Config.size
+            break
+        case 'r':
+            x1 += Config.size
+            break
+        }
+
+        for (let i in this.objects.walls) {
+            if (
+                this.objects.walls[i].position.x === x1 &&
+                this.objects.walls[i].position.z === z1
+            ) return false
+        }
+
+        return this.playerBoxCollision(dir, x1, z1)
+    }
+
+    playerBoxCollision(dir, x1, z1) {
         let x2 = x1, z2 = z1
 
         switch (dir) {
         case 'u':
-            x2--
+            z2 -= Config.size
             break
         case 'l':
-            z2++
+            x2 -= Config.size
             break
         case 'd':
-            x2++
+            z2 += Config.size
             break
         case 'r':
-            z2--
+            x2 += Config.size
             break
         }
 
-        return Config.map[z2][x2] !== '#'
+        for (let i in this.objects.boxes) {
+            if (
+                this.objects.boxes[i].position.x === x1 &&
+                this.objects.boxes[i].position.z === z1
+            ) {
+                if (this.boxWallCollision(x2, z2)) return false
+                else return dir.toUpperCase()
+            }
+        }
+
+        return dir
     }
 
-    detectCollisions(object1, object2){
+    boxWallCollision(x2, z2) {
+        for (let i in this.objects.walls) {
+            if (
+                this.objects.walls[i].position.x === x2 &&
+                this.objects.walls[i].position.z === z2
+            ) {
+                return true
+            }
+        }
+
+        return false
+    }
+
+    detectCollisions(object1, object2) {
         object1.geometry.computeBoundingBox()
         object2.geometry.computeBoundingBox()
         object1.updateMatrixWorld()
@@ -45,5 +93,11 @@ export default class Collisions {
         box2.applyMatrix4(object2.matrixWorld)
 
         return box1.intersectsBox(box2)
+    }
+
+    playerGoalCollision() {
+        for (let i in this.objects.goals) {
+            this.objects.goals[i].update(this.detectCollisions(this.objects.collider, this.objects.goals[i]))
+        }
     }
 }

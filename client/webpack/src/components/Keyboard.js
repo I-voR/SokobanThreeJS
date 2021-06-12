@@ -1,5 +1,4 @@
 /* eslint-disable require-jsdoc */
-import Collisions from './Collisions'
 import Config from './Config'
 
 const KEYS = {
@@ -14,12 +13,12 @@ const KEYS = {
 }
 
 export default class Keyboard {
-    constructor(domElement, animation, mesh, collider) {
+    constructor(domElement, animation, mesh, collider, collisions) {
         this.domElement = domElement
         this.animation = animation
         this.mesh = mesh
         this.collider = collider
-        this.collisions = new Collisions()
+        this.collisions = collisions
 
         this.domElement.addEventListener('keydown', event => this.onKeyDown(event), false)
     }
@@ -30,8 +29,20 @@ export default class Keyboard {
         case KEYS.ArrowUp:
         case KEYS.W:
             if (!Config.move) {
-                collision = this.collisions.detectWall(
+                collision = this.collisions.playerWallCollision(
                     this.mesh.position.x, this.mesh.position.z, 'u'
+                )
+
+                this.mesh.rotation.y = Math.PI / 2
+                this.collider.rotation.y = Math.PI / 2
+            }
+            break
+
+        case KEYS.ArrowLeft:
+        case KEYS.A:
+            if (!Config.move) {
+                collision = this.collisions.playerWallCollision(
+                    this.mesh.position.x, this.mesh.position.z, 'l'
                 )
 
                 this.mesh.rotation.y = Math.PI
@@ -39,39 +50,27 @@ export default class Keyboard {
             }
             break
 
-        case KEYS.ArrowLeft:
-        case KEYS.A:
+        case KEYS.ArrowDown:
+        case KEYS.S:
             if (!Config.move) {
-                collision = this.collisions.detectWall(
-                    this.mesh.position.x, this.mesh.position.z, 'l'
+                collision = this.collisions.playerWallCollision(
+                    this.mesh.position.x, this.mesh.position.z, 'd'
                 )
 
                 this.mesh.rotation.y = -Math.PI / 2
                 this.collider.rotation.y = -Math.PI / 2
             }
             break
-
-        case KEYS.ArrowDown:
-        case KEYS.S:
-            if (!Config.move) {
-                collision = this.collisions.detectWall(
-                    this.mesh.position.x, this.mesh.position.z, 'd'
-                )
-
-                this.mesh.rotation.y = 0
-                this.collider.rotation.y = 0
-            }
-            break
     
         case KEYS.ArrowRight:
         case KEYS.D:
             if (!Config.move) {
-                collision = this.collisions.detectWall(
+                collision = this.collisions.playerWallCollision(
                     this.mesh.position.x, this.mesh.position.z, 'r'
                 )
 
-                this.mesh.rotation.y = Math.PI / 2
-                this.collider.rotation.y = Math.PI / 2
+                this.mesh.rotation.y = 0
+                this.collider.rotation.y = 0
             }
             break
 

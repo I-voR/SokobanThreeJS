@@ -122,7 +122,6 @@ export default class Keyboard {
             this.animation.playAnim('Run')
             document.getElementById('moves').innerText++
             Config.solution += collision
-            console.log(Config.solution)
         }
     }
 }

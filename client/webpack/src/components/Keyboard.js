@@ -35,7 +35,7 @@ export default class Keyboard {
                 )
 
                 if (collision === 'U') {
-                    Config.moveCrate = this.collisions.searchCrate(
+                    Config.moveCrate = this.collisions.searchBox(
                         this.mesh.position.x, this.mesh.position.z, 'u'
                     )
                     Config.moveCrate.rotation.y = Math.PI / 2
@@ -56,7 +56,7 @@ export default class Keyboard {
                 )
 
                 if (collision === 'L') {
-                    Config.moveCrate = this.collisions.searchCrate(
+                    Config.moveCrate = this.collisions.searchBox(
                         this.mesh.position.x, this.mesh.position.z, 'l'
                     )
                     Config.moveCrate.rotation.y = Math.PI
@@ -77,7 +77,7 @@ export default class Keyboard {
                 )
 
                 if (collision === 'D') {
-                    Config.moveCrate = this.collisions.searchCrate(
+                    Config.moveCrate = this.collisions.searchBox(
                         this.mesh.position.x, this.mesh.position.z, 'd'
                     )
                     Config.moveCrate.rotation.y = -Math.PI / 2
@@ -98,7 +98,7 @@ export default class Keyboard {
                 )
                 
                 if (collision === 'R') {
-                    Config.moveCrate = this.collisions.searchCrate(
+                    Config.moveCrate = this.collisions.searchBox(
                         this.mesh.position.x, this.mesh.position.z, 'r'
                     )
                     Config.moveCrate.rotation.y = 0
@@ -118,9 +118,8 @@ export default class Keyboard {
         Config.move = collision !== false
 
         if (Config.move && collision !== undefined) {
-            console.log(collision)
             this.socket.emit('move', collision)
-            this.animation.playAnim('CrWalk')
+            this.animation.playAnim('Run')
             document.getElementById('moves').innerText++
         }
     }

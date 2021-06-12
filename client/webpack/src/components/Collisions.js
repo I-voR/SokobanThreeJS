@@ -7,10 +7,10 @@ export default class Collisions {
         this.objects = objects
     }
 
-    searchCrate(x, z, dir) {
+    searchBox(x, z, dir) {
         let x1 = x, z1 = z
         
-        switch (dir) {
+        switch (dir.toLowerCase()) {
         case 'u':
             z1 -= Config.size
             break
@@ -31,6 +31,8 @@ export default class Collisions {
                 this.objects.boxes[i].position.z === z1
             ) return this.objects.boxes[i]
         }
+
+        return null
     }
 
     playerWallCollision(x, z, dir) {

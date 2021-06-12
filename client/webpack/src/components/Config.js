@@ -3,5 +3,8 @@ export default {
     move: false,
     size: 70,
     moveCrate: null,
-    speed: 2
+    speed: 2,
+    enemyMove: '',
+    enemyBox: null,
+    enemyMoving: false
 }

@@ -23,7 +23,7 @@ export default class Player {
         new MD2Loader(this.manager).load(
             model,
             geometry => {
-                // console.log(geometry.animations)
+                console.log(geometry.animations)
                 this.geometry = geometry
 
                 this.mesh = new Mesh(geometry, new MeshBasicMaterial({

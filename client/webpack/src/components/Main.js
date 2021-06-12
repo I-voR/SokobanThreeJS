@@ -25,7 +25,6 @@ export default class Main {
         this.collider = null
         this.container = container
         this.isPlayer = isPlayer
-        this.socket = Config.socket
 
         this.scene = new Scene()
         this.clock = new Clock()
@@ -83,10 +82,6 @@ export default class Main {
     }
 
     render() {
-        this.socket.on('positionUpdate', function(dir) {
-            console.log(dir)
-        })
-
         let delta = this.clock.getDelta()
         if (this.animation) this.animation.update(delta)
 
@@ -106,7 +101,56 @@ export default class Main {
                 if (parseInt(this.player.mesh.position.x) % (Config.size) === 0 &&
                 parseInt(this.player.mesh.position.z) % (Config.size) === 0) {
                     Config.move = false
-                    this.animation.playAnim('CrStand')
+                    this.animation.playAnim('Stand')
+                }
+            }
+        } else if (this.player.mesh && !this.isPlayer) {
+            if (Config.enemyMove !== '') {
+                if (!Config.enemyMoving) {
+                    this.animation.playAnim('run')
+                    Config.enemyMoving = true
+                    Config.enemyBox = this.collisions.searchBox(
+                        this.player.mesh.position.x, this.player.mesh.position.z, Config.enemyMove
+                    )
+                }
+
+                switch (Config.enemyMove) {
+                case 'u':
+                case 'U':
+                    this.player.mesh.rotation.y = Math.PI / 2
+                    this.objects.collider.rotation.y = Math.PI / 2
+                    if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = Math.PI / 2 }
+                    console.log(Config.enemyBox)
+                    // if (Config.enemyMove === 'U') 
+                    break
+                case 'l':
+                case 'L':
+                    this.player.mesh.rotation.y = Math.PI
+                    this.objects.collider.rotation.y = Math.PI
+                    if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = Math.PI }
+                    break
+                case 'd':
+                case 'D':
+                    this.player.mesh.rotation.y = -Math.PI / 2
+                    this.objects.collider.rotation.y = -Math.PI / 2
+                    if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = -Math.PI / 2 }
+                    break
+                case 'r':
+                case 'R':
+                    this.player.mesh.rotation.y = 0
+                    this.objects.collider.rotation.y = 0
+                    if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = 0 }
+                    break
+                }
+                this.player.mesh.translateX(Config.speed)
+                this.objects.collider.translateX(Config.speed)
+                if (Config.enemyBox !== null) { Config.enemyBox.translateX(Config.speed) }
+
+                if (parseInt(this.player.mesh.position.x) % (Config.size) === 0 &&
+                parseInt(this.player.mesh.position.z) % (Config.size) === 0) {
+                    Config.enemyMove = ''
+                    Config.enemyMoving = false
+                    this.animation.playAnim('stand')
                 }
             }
         }

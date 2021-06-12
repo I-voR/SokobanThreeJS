@@ -5,16 +5,16 @@ import Main from './components/Main'
 //const { $CombinedState } = require('redux')
 console.log(location.href)
 
-/*const socket = io(location.href, {
+const socket = io(location.href, {
     'force new connection': true,
     'reconnectionAttempts': 'Infinity',
     'timeout': 10001,
     'transports': ['websocket']
-})*/
+})
 
 //var socket = io.connect('http://localhost:8000')
 
-/*socket.on('connect', function() {
+socket.on('connect', function() {
     let user = prompt('Type your nickname: ')
     while (user === '' || user === null) {
         console.log(user)
@@ -29,27 +29,27 @@ socket.on('debugoutput', function(a) {
 
 socket.on('leavePoczekalnia', function(a) {
     socket.emit('createSession')
-})*/
+})
 
-// let user = prompt('Type your nickname: ')
-// while (user === '' || user === null) {
-//     console.log(user)
-//     user = prompt('Your nickname can\'t be empty! Type your nickname: ')
-// }
+let user = prompt('Type your nickname: ')
+while (user === '' || user === null) {
+    console.log(user)
+    user = prompt('Your nickname can\'t be empty! Type your nickname: ')
+}
 
 /** 
 * Used to emit debug data
 */
-// function debug() {
-//     socket.emit('debug')
-// }
+function debug() {
+    socket.emit('debug')
+}
 
 /** 
 * Used to test room creation
 */
-// function roomTest() {
-//     'pass'
-// }
+function roomTest() {
+    'pass'
+}
 
 /** 
 * Used to init WebGL
@@ -58,17 +58,19 @@ function init() {
     const player1 = document.getElementById('player1')
     const player2 = document.getElementById('player2')
 
-    /* socket.emit('requestMap')
+    socket.emit('requestMap')
     socket.on('postMap', function(map) {
-        new Main(player1, map)
-        new Main(player2, map)
-    })*/
-    // let map = "#######\n#.   .#\n#  $  #\n# $@$ #\n#  $  #\n#.   .#\n#######"
-    let map = '########\n#.  $ .#\n#.$$$$.#\n#. @$ .#\n########'
-    Config.map = map.split('\n')
+        Config.map = map.split('\n')
 
-    new Main(player1, true)
-    new Main(player2, false)
+        new Main(player1, true)
+        new Main(player2, false)
+    })
+    // let map = "#######\n#.   .#\n#  $  #\n# $@$ #\n#  $  #\n#.   .#\n#######"
+    // let map = '########\n#.  $ .#\n#.$$$$.#\n#. @$ .#\n########'
+    // Config.map = map.split('\n')
+
+    // new Main(player1, true)
+    // new Main(player2, false)
 }
 
 init()

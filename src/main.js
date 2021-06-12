@@ -1,8 +1,6 @@
 import express from 'express'
 import { createServer } from "http";
 import { Server } from "socket.io";
-import connect from './socket/connect.js';
-
 
 
 export const main = {
@@ -44,12 +42,76 @@ export const main = {
         })
 
 
+        io.on("connection", socket => { /* ... */ });
+        io.sockets.on('connection', function (socket) {
+            socket.emit('debugoutput', "test emitu")
+            socket.on('adduser', function (username) {
+                if (GLOBALlobby.length === 2) {
+                    GLOBALlobby = []
+                }
+                GLOBALlobby.push(username)
+                console.log(GLOBALlobby)
+
+                socket.data.username = username
+                console.log(socket.data.username)
+                socket.join('poczekalnia')
+                socket.data.room = 'poczekalnia'
+
+
+                if (GLOBALlobby.length === 2) {
+                    io.to('poczekalnia').emit('leavePoczekalnia');
+                }
+
+                socket.on('createSession', function () {
+                    let users = GLOBALlobby
+                    let roomname = users[0] + '-' + users[1]
+                    socket.leave('poczekalnia')
+                    socket.join(roomname)
+                    socket.data.room = roomname
+                    socket.emit('debugoutput', roomname)
+                    socket.emit('sessionready')
+
+                    socket.on('requestMap', function () {
+                        //global jsona z mapami
+                        let mapJSON = GLOBALmaps
+                        let index = Math.floor(Math.random() * (mapJSON.length))
+
+                        socket.to(roomname).emit('postMap', mapJSON[index])
+                    })
+
+
+                    socket.on('move', function (direction, position) {
+                        let data = { player: socket.data.username, coords: '' }
+
+                        socket.to(roomname).emit('positionUpdate', data)
+
+
+                        console.log("move " + direction + " " + position)
+                        console.log(roomname + ' ' + data)
+                    })
+
+
+                })
+
+
+            })
+
+            socket.on('disconnect', function () {
+                console.log('disconnected' + socket.data.username)
+                if (socket.data.username != undefined) {
+                    console.log(socket.data.username)
+                    GLOBALlobby = GLOBALlobby.filter(username => username != socket.data.username)
+                    console.log(GLOBALlobby)
+                }
+            });
 
 
 
-        connect.socketFunc(io)
 
 
+
+
+        });
     }
 };
 export default main

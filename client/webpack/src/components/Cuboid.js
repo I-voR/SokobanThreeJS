@@ -8,7 +8,8 @@ import {
 } from 'three'
 
 import wallTex from '../assets/wall.png'
-import boxTex from '../assets/box.png'
+// import boxTex from '../assets/box.png'
+import boxTex from '../assets/box.jpg'
 import goalTopTex from '../assets/goal_top.png'
 import goalSideTex from '../assets/goal_side.png'
 
@@ -78,14 +79,21 @@ export default class Cuboid extends Mesh {
             })
             height = 1
             break
+        case 4: // Plus
+            material = new MeshBasicMaterial({
+                side: DoubleSide,
+                wireframe: false,
+                color: 0xffff00
+            })
+            height = 4
         }
 
         super(
-            new BoxGeometry(size, height, size),
+            new BoxGeometry(type === 4 ? 4 : size, height, size),
             material
         )
         this.type = type
-        this.position.set(x, height / 2 , z)
+        this.position.set(x, height / 2, z)
     }
 
     update(bool) {

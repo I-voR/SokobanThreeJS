@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/I-voR/SokobanThreeJS#readme",
   "dependencies": {
+    "glob-parent": ">=5.1.2",
     "css-loader": "^5.2.1",
     "file-loader": "^6.2.0",
     "html-webpack-plugin": "^5.3.1",

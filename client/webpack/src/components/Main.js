@@ -48,6 +48,9 @@ export default class Main {
 
         this.scene.add(this.objects.collider)
         this.scene.add(this.objects.floor)
+        for (let i in this.objects.windRose) {
+            this.scene.add(this.objects.windRose[i])
+        }
         for (let i in this.objects.walls) {
             this.scene.add(this.objects.walls[i])
         }
@@ -154,8 +157,9 @@ export default class Main {
             }
         }
 
-        this.collisions.playerGoalCollision()
-        this.collisions.boxGoalCollision()
+        // this.collisions.playerGoalCollision()
+        // this.collisions.boxGoalCollision()
+        this.collisions.goalCollisions()
 
         if (this.collisions.gameEndCheck()) {
             this.socket.emit('end')

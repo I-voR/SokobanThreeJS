@@ -13,13 +13,13 @@ const socket = io(location.href.substring(0, location.href.lastIndexOf('/')) + '
 socket.on('connect', function() {
     let user = prompt('Type your nickname: ')
     while (user === '' || user === null) {
-        console.log(user)
         user = prompt('Your nickname can\'t be empty! Type your nickname: ')
     }
     socket.emit('adduser', user)
 })
 
 socket.on('debugoutput', function(a) {
+    // eslint-disable-next-line no-console
     console.debug(a)
 })
 

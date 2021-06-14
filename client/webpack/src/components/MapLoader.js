@@ -1,6 +1,7 @@
 /* eslint-disable require-jsdoc */
 import Floor from './Floor'
 import Cuboid from './Cuboid'
+import Text from './Text'
 import Config from './Config'
 
 export default class MapLoader {
@@ -17,10 +18,48 @@ export default class MapLoader {
             boxes: [],
             goals: [],
             walls: [],
+            windRose: [],
             collider: null
         }
 
         let obj
+
+        obj = new Cuboid(
+            size, size * (-Config.map[0].length / 2 + 2),
+            size * (Config.map.length / 2 + 4), 4
+        )
+        objs.windRose.push(obj)
+
+        obj = new Cuboid(
+            size, size * (-Config.map[0].length / 2 + 2),
+            size * (Config.map.length / 2 + 4), 4
+        )
+        obj.rotation.y = Math.PI / 2
+        objs.windRose.push(obj)
+
+        obj = new Text(
+            size * (-Config.map[0].length / 2 + 2) - 8,
+            size * (Config.map.length / 2 + 4) - 48, 'U'
+        )
+        objs.windRose.push(obj)
+
+        obj = new Text(
+            size * (-Config.map[0].length / 2 + 2) - 52,
+            size * (Config.map.length / 2 + 4) + 8, 'L'
+        )
+        objs.windRose.push(obj)
+
+        obj = new Text(
+            size * (-Config.map[0].length / 2 + 2) - 8,
+            size * (Config.map.length / 2 + 4) + 64, 'D'
+        )
+        objs.windRose.push(obj)
+
+        obj = new Text(
+            size * (-Config.map[0].length / 2 + 2) + 40,
+            size * (Config.map.length / 2 + 4) + 8, 'R'
+        )
+        objs.windRose.push(obj)
 
         for (let i in Config.map[0]) {
             for (let j in Config.map) {

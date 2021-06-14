@@ -136,23 +136,19 @@ export default class Collisions {
         return box1.intersectsBox(box2)
     }
 
-    playerGoalCollision() {
+    goalCollisions() {
         let bool
-
-        for (let i in this.objects.goals) {
-            bool = this.detectCollisions(this.objects.collider, this.objects.goals[i])
-            if (bool) {
-                this.objects.goals[i].update(true)
-                return
-            }
-        }
-    }
-
-    boxGoalCollision() {
         for (let i in this.objects.goals) {
             for (let j in this.objects.boxes) {
-                this.objects.goals[i].update(this.detectCollisions(this.objects.goals[i], this.objects.boxes[j]))
-                break
+                bool = (
+                    this.detectCollisions(this.objects.goals[i], this.objects.boxes[j]) ||
+                    this.detectCollisions(this.objects.goals[i], this.objects.collider)
+                )
+                this.objects.goals[i].update(bool)
+                if (bool) {
+                    console.log(bool)
+                    break
+                }
             }
         }
     }

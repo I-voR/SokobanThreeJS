@@ -2,7 +2,7 @@ import express from 'express'
 import crypto from 'crypto'
 import { createServer } from "http";
 import { Server } from "socket.io";
-
+import Mongo from './mongo/mongo.js'
 
 export const main = {
     init: () => {
@@ -34,13 +34,31 @@ export const main = {
             next();
 
 
-        },
-            express.static('client'))
+        })
 
         app.all('/', function (request, response, next) {
             response.header('Access-Control-Allow-Origin', "*");
             response.header('Access-Control-Allow-Headers', 'X-Requested-With');
         })
+
+        let mongoC = new Mongo("mongodb://localhost:27017/mydb")
+        mongoC.start()
+        mongoC.getRecords()
+        //mongoC.createCollection()
+        //mongoC.insertRecord({ nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" })
+
+        app.get("/records", function (req, res) {
+            res.send(global.GLOBALdata)
+        })
+
+
+
+
+
+
+
+
+
 
 
         io.on("connection", socket => { /* ... */ });
@@ -96,6 +114,11 @@ export const main = {
 
                     })
 
+                    socket.on('sendRecord', function (record) {
+                        //record = { nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" }
+                        mongoC.insertRecord(record)
+                        mongoC.getRecords()
+                    })
 
                 })
 

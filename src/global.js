@@ -10,6 +10,7 @@ export function globalSetter() {
 
     global.GLOBALlobby = [];
     global.GLOBALmaps = JSON.parse(readFileSync(__dirname + '/../data/maps.json'));
+    global.GLOBALdata = null
 }
 export default globalSetter
 

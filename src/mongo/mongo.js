@@ -1,7 +1,7 @@
 import mongodb from 'mongodb'
 
 export default class Mongo {
-    constructor(url,) {
+    constructor(url) {
         this.url = url
     }
     start() {

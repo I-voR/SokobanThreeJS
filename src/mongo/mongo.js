@@ -7,8 +7,6 @@ export default class Mongo {
     start() {
         mongodb.MongoClient.connect(this.url, function (err, db) {
             if (err) throw err;
-
-            console.log("Database created!");
             db.close();
         });
     }
@@ -19,11 +17,11 @@ export default class Mongo {
 
             let dbo = db.db("sokoban-database")
             dbo.createCollection("score", function (err, res) {
-                if (err) throw err;
-                console.log("Collection created!");
+                //if (err) throw err;
                 db.close();
             });
         });
+
 
     }
     insertRecord(scoreRecord) {

@@ -1,4 +1,4 @@
-console.log('Scores')
+console.log(location.href)
 
 $.get(location.href + '/records', function(data) {
     //$( ".result" ).html( data );

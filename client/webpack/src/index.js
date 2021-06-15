@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import Config from './components/Config'
 import Main from './components/Main'
-import { io } from './components/lib/socket.io/socket.io.min.js'
+import { io } from 'socket.io-client'
 
-console.log('Game')
+console.log(location.href)
 
 const socket = io(location.href, {
     'force new connection': true,

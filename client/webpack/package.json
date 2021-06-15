@@ -20,10 +20,11 @@
   },
   "homepage": "https://github.com/I-voR/SokobanThreeJS#readme",
   "dependencies": {
-    "glob-parent": ">=5.1.2",
     "css-loader": "^5.2.1",
     "file-loader": "^6.2.0",
+    "glob-parent": ">=5.1.2",
     "html-webpack-plugin": "^5.3.1",
+    "socket.io-client": "^4.1.2",
     "style-loader": "^2.0.0",
     "three": "^0.126.0",
     "url-loader": "^4.1.1",

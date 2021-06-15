@@ -39,25 +39,25 @@ export default class MapLoader {
 
         obj = new Text(
             size * (-Config.map[0].length / 2 + 2) - 8,
-            size * (Config.map.length / 2 + 4) - 48, 'U'
+            size * (Config.map.length / 2 + 4) - 48, 'W'
         )
         objs.windRose.push(obj)
 
         obj = new Text(
             size * (-Config.map[0].length / 2 + 2) - 52,
-            size * (Config.map.length / 2 + 4) + 8, 'L'
+            size * (Config.map.length / 2 + 4) + 8, 'A'
         )
         objs.windRose.push(obj)
 
         obj = new Text(
             size * (-Config.map[0].length / 2 + 2) - 8,
-            size * (Config.map.length / 2 + 4) + 64, 'D'
+            size * (Config.map.length / 2 + 4) + 64, 'S'
         )
         objs.windRose.push(obj)
 
         obj = new Text(
             size * (-Config.map[0].length / 2 + 2) + 40,
-            size * (Config.map.length / 2 + 4) + 8, 'R'
+            size * (Config.map.length / 2 + 4) + 8, 'D'
         )
         objs.windRose.push(obj)
 

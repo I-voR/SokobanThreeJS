@@ -3,9 +3,20 @@ import Config from './components/Config'
 import Main from './components/Main'
 import { io } from 'socket.io-client'
 
-console.log(location.href)
+String.prototype.nthIndexOf = function(pattern, n) {
+    let i = -1
 
-const socket = io(location.href, {
+    while (n-- && i++ < this.length) {
+        i = this.indexOf(pattern, i)
+        if (i < 0) break
+    }
+
+    return i
+}
+
+console.log(location.href.substring(0, location.href.nthIndexOf('/', 3)))
+
+const socket = io(location.href.substring(0, location.href.nthIndexOf('/', 3)), {
     'force new connection': true,
     'reconnectionAttempts': 'Infinity',
     'timeout': 10001,

@@ -1,6 +1,17 @@
-console.log(location.href)
+String.prototype.nthIndexOf = function(pattern, n) {
+    let i = -1
 
-$.get(location.href + '/records', function(data) {
+    while (n-- && i++ < this.length) {
+        i = this.indexOf(pattern, i)
+        if (i < 0) break
+    }
+
+    return i
+}
+
+console.log(location.href.substring(0, location.href.nthIndexOf('/', 3)))
+
+$.get(location.href.substring(0, location.href.nthIndexOf('/', 3))+ '/records', function(data) {
     //$( ".result" ).html( data );
     //alert( "Load was performed." );
     console.log(data)

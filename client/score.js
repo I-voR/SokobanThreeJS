@@ -1,4 +1,4 @@
-$.get(location.href.substring(0, location.href.lastIndexOf('/') - 4) + ':8080/records', function(data) {
+$.get(location.href + '/records', function(data) {
     //$( ".result" ).html( data );
     //alert( "Load was performed." );
     console.log(data)

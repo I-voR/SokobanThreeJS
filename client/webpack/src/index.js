@@ -3,7 +3,7 @@ import Config from './components/Config'
 import Main from './components/Main'
 import { io } from '../lib/socket.io/socket.io.min.js'
 
-const socket = io(location.href.substring(0, location.href.lastIndexOf('/')) + ':8080', {
+const socket = io(location.href, {
     'force new connection': true,
     'reconnectionAttempts': 'Infinity',
     'timeout': 10001,

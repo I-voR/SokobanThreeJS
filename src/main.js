@@ -40,7 +40,7 @@ export const main = {
             response.header('Access-Control-Allow-Headers', 'X-Requested-With')
         })
 
-        let mongoC = new Mongo("process.env.MONGODB_URI")
+        let mongoC = new Mongo(process.env.MONGODB_URI)
         mongoC.start()
         mongoC.getRecords()
         mongoC.createCollection()

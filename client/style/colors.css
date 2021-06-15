@@ -24,3 +24,19 @@ header {
 #player2 {
     border-left: 1px solid var(--area-divider);
 }
+
+#victory {
+    background-color: lightgreen;
+}
+
+#defeat {
+    background-color: lightcoral;
+}
+
+#victory * {
+    filter: invert(.6);
+}
+
+#victory button {
+    color: var(--font-color)
+}

@@ -15,6 +15,7 @@ socket.on('connect', function() {
     while (user === '' || user === null) {
         user = prompt('Your nickname can\'t be empty! Type your nickname: ')
     }
+    Config.userName = user
     socket.emit('adduser', user)
 })
 
@@ -50,7 +51,6 @@ socket.on('sessionready', function() {
     socket.emit('requestMap')
 })
 
-
 socket.on('positionUpdate', function(dir) {
     Config.enemyMove = dir
 })
@@ -65,6 +65,7 @@ function init() {
 
     socket.on('postMap', function(map) {
         Config.map = map.map.split('\n')
+        Config.mapNo = map.id
         new Main(player1, true)
         new Main(player2, false)
     })

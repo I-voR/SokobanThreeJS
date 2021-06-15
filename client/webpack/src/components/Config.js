@@ -7,5 +7,8 @@ export default {
     enemyMove: '',
     enemyBox: null,
     enemyMoving: false,
-    solution: ''
+    solution: '',
+    userName: '',
+    gameOver: false,
+    mapNo: -1
 }

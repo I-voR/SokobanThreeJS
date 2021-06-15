@@ -1,7 +1,7 @@
 import express from 'express'
 import crypto from 'crypto'
-import { createServer } from "http";
-import { Server } from "socket.io";
+import { createServer } from "http"
+import { Server } from "socket.io"
 import Mongo from './mongo/mongo.js'
 
 export const main = {
@@ -10,35 +10,34 @@ export const main = {
         //const express = require("express")
         const app = express()
         //const httpServer = require("http").createServer(app);
-        const httpServer = createServer(app);
+        const httpServer = createServer(app)
         const options = {
             cors: {
                 origin: "*",
             }
-        };
+        }
+
+        app.use(express.static('client'))
         //const io = require("socket.io")(httpServer, options);
-        const io = new Server(httpServer, options);
+        const io = new Server(httpServer, options)
         //const httpServer = app.listen(process.env.PORT || 8080)
 
         //const httpServer = require("http").createServer(app)
-        httpServer.listen(PORT, function () {
+        httpServer.listen(PORT, function() {
             console.log('Server started on port:', PORT)
         })
 
         app.use(function (req, res, next) {
-
-            res.header('Access-Control-Allow-Origin', "*");
-            res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,PATCH,DELETE');
-            res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type');
-            res.header('Access-Control-Allow-Credentials', true);
-            next();
-
-
+            res.header('Access-Control-Allow-Origin', "*")
+            res.header('Access-Control-Allow-Methods', 'GET,POST,OPTIONS,PUT,PATCH,DELETE')
+            res.header('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type')
+            res.header('Access-Control-Allow-Credentials', true)
+            next()
         })
 
         app.all('/', function (request, response, next) {
-            response.header('Access-Control-Allow-Origin', "*");
-            response.header('Access-Control-Allow-Headers', 'X-Requested-With');
+            response.header('Access-Control-Allow-Origin', "*")
+            response.header('Access-Control-Allow-Headers', 'X-Requested-With')
         })
 
         let mongoC = new Mongo("mongodb://localhost:27017/mydb")
@@ -47,21 +46,11 @@ export const main = {
         //mongoC.createCollection()
         //mongoC.insertRecord({ nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" })
 
-        app.get("/records", function (req, res) {
+        app.get("/records", function(req, res) {
             res.send(global.GLOBALdata)
         })
 
-
-
-
-
-
-
-
-
-
-
-        io.on("connection", socket => { /* ... */ });
+        io.on("connection", socket => { /* ... */ })
         io.sockets.on('connection', function (socket) {
             socket.emit('debugoutput', "test emitu")
             socket.on('adduser', function (username) {
@@ -78,10 +67,10 @@ export const main = {
 
 
                 if (GLOBALlobby.length === 2) {
-                    io.to('poczekalnia').emit('leavePoczekalnia');
+                    io.to('poczekalnia').emit('leavePoczekalnia')
                 }
 
-                socket.on('createSession', function () {
+                socket.on('createSession', function() {
                     let users = GLOBALlobby
                     let roomname = users[0] + '-' + users[1]
                     socket.leave('poczekalnia')
@@ -90,15 +79,12 @@ export const main = {
                     socket.emit('debugoutput', roomname)
                     socket.emit('sessionready')
 
-                    socket.on('requestMap', function () {
+                    socket.on('requestMap', function() {
                         //global jsona z mapami
-
-                        var md5sum = crypto.createHash('md5');
+                        var md5sum = crypto.createHash('md5')
                         var mapNumber = socket.data.room
-                        md5sum.update(mapNumber);
-                        mapNumber = md5sum.digest('hex');
-
-
+                        md5sum.update(mapNumber)
+                        mapNumber = md5sum.digest('hex')
 
                         let mapJSON = GLOBALmaps
                         let index = parseInt(mapNumber.replace(/\D/g, '')) % mapJSON.length
@@ -106,23 +92,21 @@ export const main = {
                         socket.to(roomname).emit('postMap', mapJSON[index])
                     })
 
-
-                    socket.on('move', function (direction) {
-
+                    socket.on('move', function(direction) {
                         socket.to(roomname).emit('positionUpdate', direction)
-                        console.log('moce' + roomname + ' ' + direction)
-
+                        console.log('move' + roomname + ' ' + direction)
                     })
 
-                    socket.on('sendRecord', function (record) {
+                    socket.on('sendRecord', function(record) {
                         //record = { nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" }
                         mongoC.insertRecord(record)
                         mongoC.getRecords()
                     })
 
+                    socket.on('end', function() {
+                        socket.emit('gameOver')
+                    })
                 })
-
-
             })
 
             socket.on('disconnect', function () {
@@ -132,18 +116,9 @@ export const main = {
                     GLOBALlobby = GLOBALlobby.filter(username => username != socket.data.username)
                     console.log(GLOBALlobby)
                 }
-            });
-
-
-
-
-
-
-
-        });
+            })
+        })
     }
-};
+}
+
 export default main
-
-
-

@@ -1,4 +1,4 @@
-$.get(location.href.substring(0, location.href.lastIndexOf('/') - 4) + ':8080/records', function (data) {
+$.get(location.href.substring(0, location.href.lastIndexOf('/') - 4) + ':8080/records', function(data) {
     //$( ".result" ).html( data );
     //alert( "Load was performed." );
     console.log(data)
@@ -7,16 +7,8 @@ $.get(location.href.substring(0, location.href.lastIndexOf('/') - 4) + ':8080/re
 
     data.forEach(element => {
         $('#score-table').append($('<tr><td>' + element.nick + '</td><td>' + element.map + '</td><td>' + element.moves.length + '</td><td>' + element.moves + '</td></tr>'))
-    });
+    })
     $('#score-table').append('</tbody>')
 
-
-
     $('#score-table').DataTable()
-});
-
-
-
-
-
-
+})

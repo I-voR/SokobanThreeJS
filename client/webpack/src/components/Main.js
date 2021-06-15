@@ -118,32 +118,29 @@ export default class Main {
                     )
                 }
 
-                switch (Config.enemyMove) {
+                switch (Config.enemyMove.toLowerCase()) {
                 case 'u':
-                case 'U':
                     this.player.mesh.rotation.y = Math.PI / 2
                     this.objects.collider.rotation.y = Math.PI / 2
                     if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = Math.PI / 2 }
                     break
                 case 'l':
-                case 'L':
                     this.player.mesh.rotation.y = Math.PI
                     this.objects.collider.rotation.y = Math.PI
                     if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = Math.PI }
                     break
                 case 'd':
-                case 'D':
                     this.player.mesh.rotation.y = -Math.PI / 2
                     this.objects.collider.rotation.y = -Math.PI / 2
                     if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = -Math.PI / 2 }
                     break
                 case 'r':
-                case 'R':
                     this.player.mesh.rotation.y = 0
                     this.objects.collider.rotation.y = 0
                     if (Config.enemyBox !== null) { Config.enemyBox.rotation.y = 0 }
                     break
                 }
+
                 this.player.mesh.translateX(Config.speed)
                 this.objects.collider.translateX(Config.speed)
                 if (Config.enemyBox !== null) { Config.enemyBox.translateX(Config.speed) }
@@ -157,12 +154,20 @@ export default class Main {
             }
         }
 
-        // this.collisions.playerGoalCollision()
-        // this.collisions.boxGoalCollision()
         this.collisions.goalCollisions()
+
+        this.socket.on('gameOver', function() {
+            Config.gameOver = true
+            document.getElementById('defeat').style.display = 'block'
+        })
+
+        if (Config.gameOver) return
 
         if (this.collisions.gameEndCheck()) {
             this.socket.emit('end')
+            this.socket.emit('sendRecord', { nick: Config.userName, map: Config.mapNo, moves: Config.solution } )
+            document.getElementById('victory').style.display = 'block'
+            document.getElementById('score-moves').innerText = document.getElementById('moves').innerText
             return
         }
 

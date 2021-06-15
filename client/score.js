@@ -1,3 +1,5 @@
+console.log('Scores')
+
 $.get(location.href + '/records', function(data) {
     //$( ".result" ).html( data );
     //alert( "Load was performed." );

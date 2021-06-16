@@ -98,14 +98,6 @@ main {
     text-align: center;
 }
 
-#victory {
-    background-color: lightgreen;
-}
-
-#defeat {
-    background-color: lightcoral;
-}
-
 q {
     margin-top: 1rem;
     display: inline-block;

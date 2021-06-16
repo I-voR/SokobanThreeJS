@@ -7,6 +7,7 @@ import Mongo from './mongo/mongo.js'
 export const main = {
     init: () => {
         const PORT = process.env.PORT || 8080
+        const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydb'
         //const express = require("express")
         const app = express()
         //const httpServer = require("http").createServer(app);
@@ -40,7 +41,7 @@ export const main = {
             response.header('Access-Control-Allow-Headers', 'X-Requested-With')
         })
 
-        let mongoC = new Mongo(process.env.MONGODB_URI)
+        let mongoC = new Mongo(MONGODB_URI)
         mongoC.start()
         mongoC.getRecords()
         mongoC.createCollection()

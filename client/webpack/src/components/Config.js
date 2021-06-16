@@ -9,6 +9,6 @@ export default {
     enemyMoving: false,
     solution: '',
     userName: '',
-    gameOver: false,
-    mapNo: -1
+    mapNo: -1,
+    socket: null
 }

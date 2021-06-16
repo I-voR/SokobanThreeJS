@@ -48,11 +48,13 @@ export const main = {
         //mongoC.insertRecord({ nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" })
 
         app.get("/records", function (req, res) {
+            mongoC.getRecords()
             res.send(global.GLOBALdata)
         })
 
         io.on("connection", socket => { /* ... */ })
         io.sockets.on('connection', function (socket) {
+            mongoC.getRecords()
             socket.emit('debugoutput', "test emitu")
             socket.on('adduser', function (username) {
                 if (GLOBALlobby.length === 2) {

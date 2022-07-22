@@ -145,10 +145,7 @@ export default class Collisions {
                     this.detectCollisions(this.objects.goals[i], this.objects.collider)
                 )
                 this.objects.goals[i].update(bool)
-                if (bool) {
-                    console.log(bool)
-                    break
-                }
+                if (bool) break
             }
         }
     }

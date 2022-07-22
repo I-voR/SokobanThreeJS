@@ -108,6 +108,15 @@ export default class Main {
                     this.animation.playAnim('Stand')
                 }
             }
+
+            if (this.collisions.gameEndCheck()) {
+                this.socket.emit('end')
+                this.socket.emit('sendRecord', { nick: Config.userName, map: Config.mapNo, moves: Config.solution } )
+                document.getElementById('victory').style.display = 'block'
+                document.getElementById('defeat').style.display = 'none'
+                document.getElementById('score-moves').innerText = document.getElementById('moves').innerText
+                return
+            }
         } else if (this.player.mesh && !this.isPlayer) {
             if (Config.enemyMove !== '') {
                 if (!Config.enemyMoving) {
@@ -151,25 +160,17 @@ export default class Main {
                     Config.enemyMoving = false
                     this.animation.playAnim('stand')
                 }
+
+                if (this.collisions.gameEndCheck()) {
+                    document.getElementById('defeat').style.display = 'block'
+                    document.getElementById('victory').style.display = 'none'
+                    return
+                }
             }
         }
 
         this.collisions.goalCollisions()
-
-        this.socket.on('gameOver', function() {
-            Config.gameOver = true
-            document.getElementById('defeat').style.display = 'block'
-        })
-
         if (Config.gameOver) return
-
-        if (this.collisions.gameEndCheck()) {
-            this.socket.emit('end')
-            this.socket.emit('sendRecord', { nick: Config.userName, map: Config.mapNo, moves: Config.solution } )
-            document.getElementById('victory').style.display = 'block'
-            document.getElementById('score-moves').innerText = document.getElementById('moves').innerText
-            return
-        }
 
         requestAnimationFrame(this.render.bind(this))
     }

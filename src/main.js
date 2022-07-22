@@ -7,6 +7,7 @@ import Mongo from './mongo/mongo.js'
 export const main = {
     init: () => {
         const PORT = process.env.PORT || 8080
+        const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/mydb'
         //const express = require("express")
         const app = express()
         //const httpServer = require("http").createServer(app);
@@ -23,7 +24,7 @@ export const main = {
         //const httpServer = app.listen(process.env.PORT || 8080)
 
         //const httpServer = require("http").createServer(app)
-        httpServer.listen(PORT, function() {
+        httpServer.listen(PORT, function () {
             console.log('Server started on port:', PORT)
         })
 
@@ -40,18 +41,20 @@ export const main = {
             response.header('Access-Control-Allow-Headers', 'X-Requested-With')
         })
 
-        let mongoC = new Mongo("mongodb://localhost:27017/mydb")
+        let mongoC = new Mongo(MONGODB_URI)
         mongoC.start()
         mongoC.getRecords()
-        //mongoC.createCollection()
+        mongoC.createCollection()
         //mongoC.insertRecord({ nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" })
 
-        app.get("/records", function(req, res) {
+        app.get("/records", function (req, res) {
+            mongoC.getRecords()
             res.send(global.GLOBALdata)
         })
 
         io.on("connection", socket => { /* ... */ })
         io.sockets.on('connection', function (socket) {
+            mongoC.getRecords()
             socket.emit('debugoutput', "test emitu")
             socket.on('adduser', function (username) {
                 if (GLOBALlobby.length === 2) {
@@ -70,7 +73,7 @@ export const main = {
                     io.to('poczekalnia').emit('leavePoczekalnia')
                 }
 
-                socket.on('createSession', function() {
+                socket.on('createSession', function () {
                     let users = GLOBALlobby
                     let roomname = users[0] + '-' + users[1]
                     socket.leave('poczekalnia')
@@ -79,7 +82,7 @@ export const main = {
                     socket.emit('debugoutput', roomname)
                     socket.emit('sessionready')
 
-                    socket.on('requestMap', function() {
+                    socket.on('requestMap', function () {
                         //global jsona z mapami
                         var md5sum = crypto.createHash('md5')
                         var mapNumber = socket.data.room
@@ -92,18 +95,18 @@ export const main = {
                         socket.to(roomname).emit('postMap', mapJSON[index])
                     })
 
-                    socket.on('move', function(direction) {
+                    socket.on('move', function (direction) {
                         socket.to(roomname).emit('positionUpdate', direction)
                         console.log('move' + roomname + ' ' + direction)
                     })
 
-                    socket.on('sendRecord', function(record) {
+                    socket.on('sendRecord', function (record) {
                         //record = { nick: "IwoIwonIwonowicz", map: "1", moves: "lllDDrrUur" }
                         mongoC.insertRecord(record)
                         mongoC.getRecords()
                     })
 
-                    socket.on('end', function() {
+                    socket.on('end', function () {
                         socket.emit('gameOver')
                     })
                 })
